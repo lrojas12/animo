@@ -1,6 +1,7 @@
 $('#send-btn').click(function() {
     
     var input = $('#sentiment_input').val();
+    console.log("Sending '" + input + "' to server");
     
     if (!input) {
         $('#sentiment_feedback').html('Please input some text.');
