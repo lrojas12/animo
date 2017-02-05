@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var indico = require('indico.io');
+var fs = require('fs');
 
 indico.apiKey =  '1dea16c1023be04af4aaa6ce6baea0e2';
 
@@ -30,33 +31,37 @@ app.post('/processSentiment', function (req, res) {
         return;
     }
 
-
-    //TEMP
-    clientReturnData = "[server] " + input; //TODO: a proper reply
-
-    res.send({
-	state: STATE_SUCCESS,
-	message: clientReturnData
-    });
-    /* Sample data
-       Anger: 0.21936692300000002%
-       Joy: 0.0597357154%
-       Fear: 0.19920347630000002%
-       Sadness: 0.4449304342%
-       Surprise: 0.0767634511
-    */
-
-    /* TODO: Uncomment later
+    //TODO: Uncomment later
+    
     indico.emotion(input)
         .then(function(data) {
-            
+
+	    console.log("------------------");
             console.log('Anger: ' + data.anger + "%\nJoy: " + data.joy + "%\nFear: " +
                         data.fear + "%\nSadness: " + data.sadness + "%\nSurprise: " + data.surprise);
-            
-            res.send({
-                state: STATE_SUCCESS,
-                //data:data,
-                message:reply});
+	    console.log("------------------");
+
+	    var emotion = getClientEmotion(data);
+	    
+	    var path = "www/data/";
+	    var filename = path + emotion + ".txt"
+	    
+
+	    fs.readFile(filename, 'utf8', function(err, contents) {
+		var replies_array = (contents.trim()).split('\n');
+		var len = replies_array.length;
+		var index = Math.floor(Math.random() * len); //Create a random index to return
+		//console.log(contents.trim());
+		var clientReply = replies_array[index];
+		console.log(clientReply);
+
+		clientReply = "[server] " + clientReply;
+		
+		res.send({
+		    state: STATE_SUCCESS,
+		    message: clientReply
+		});
+	    });    
         })
         .catch(function(err) {
             res.send({
@@ -64,7 +69,8 @@ app.post('/processSentiment', function (req, res) {
                 message:'There was an error processing the input.'
             });
         });
-    */
+    
+
 });
 
 app.set('port', process.env.PORT || 3000);
@@ -72,3 +78,34 @@ app.set('port', process.env.PORT || 3000);
 app.listen(app.get('port'), function() {
     console.log('Listening on port ' + app.get('port'));
 });
+
+function getClientEmotion(data){
+    //Returns the highest ranked emotion based on the data given
+
+    /*
+
+    var data = {
+	'anger': 0.507581704296171665,
+	'joy': 0.07016665488481522,
+	'fear': 0.6000516295433044,
+	'sadness': 0.02512381225824356,
+	'surprise': 0.86534374748375202
+    }
+    */
+    
+    var emotion = "";
+    var max_val = 0.0;    
+
+    for (var key in data) {
+	if (data.hasOwnProperty(key)) {
+	    if(data[key] > max_val){
+		emotion = key.trim();
+		max_val = data[key];
+	    }
+	    //console.log(key + " -> " + data[key]);
+	}
+    }
+    console.log(emotion + " " + max_val);
+
+    return emotion;
+}
