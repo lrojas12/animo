@@ -3,6 +3,10 @@ var bodyParser = require('body-parser');
 var indico = require('indico.io');
 var fs = require('fs');
 
+//Mongo Stuff
+const MongoClient = require('mongodb').MongoClient;
+var db;
+
 indico.apiKey =  '1dea16c1023be04af4aaa6ce6baea0e2';
 
 var app = express();
@@ -15,6 +19,13 @@ app.use(bodyParser.json());
 
 app.get('/isalive', function (req, res) {
     res.send('Yep! Its alive');
+});
+
+app.get('/dbtest', function (req, res) {
+    console.log("/dbtest called");
+    db.collection("test").save({username:"google",password:"google123"});    
+    var cursor = db.collection("test").find();
+    console.log(cursor);
 });
 
 app.post('/processSentiment', function (req, res) {    
@@ -75,9 +86,15 @@ app.post('/processSentiment', function (req, res) {
 
 app.set('port', process.env.PORT || 3000);
 
-app.listen(app.get('port'), function() {
-    console.log('Listening on port ' + app.get('port'));
-});
+MongoClient.connect('mongodb://admin:admin@ds141209.mlab.com:41209/qhacks2017', (err, database) => {
+  if (err) return console.log(err)
+  db = database
+    app.listen(app.get('port'), function() {
+	console.log('Listening on port ' + app.get('port'));
+    });
+})
+
+
 
 function getClientEmotion(data){
     //Returns the highest ranked emotion based on the data given
