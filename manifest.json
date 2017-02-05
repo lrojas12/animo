@@ -1,0 +1,24 @@
+{
+    "manifest_version": 2,
+    "name": "My Extension",
+    "version": "0.1",
+
+    "content_scripts": [
+	{
+	    "matches": [
+		"<all_urls>"
+	    ],
+	    "js": ["./www/libs/jquery-3.1.1.min.js","./www/js/content.js"]
+	}
+    ],
+    "browser_action":{
+	"default_popup": "./www/popup.html",
+	"default_icon": "./www/img/icon.png",
+	"default_title": "Click here!"
+    },
+    "background": {
+	"scripts": ["./www/js/background.js"]
+    }
+    
+
+}
