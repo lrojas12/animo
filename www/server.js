@@ -16,12 +16,12 @@ app.get('/isalive', function (req, res) {
     res.send('Yep! Its alive');
 });
 
-app.post('/processSentiment', function (req, res) {
-    
-    console.log('Received something from client!');
+app.post('/processSentiment', function (req, res) {    
     
     var input = req.body.input;
     var reply = ""; //TODO: automate this
+
+    console.log('[client] ' + input);
         
     if (!input) {
         res.send({
@@ -29,7 +29,24 @@ app.post('/processSentiment', function (req, res) {
             message:'Empty input.'});
         return;
     }
-    
+
+
+    //TEMP
+    clientReturnData = "[server] " + input; //TODO: a proper reply
+
+    res.send({
+	state: STATE_SUCCESS,
+	message: clientReturnData
+    });
+    /* Sample data
+       Anger: 0.21936692300000002%
+       Joy: 0.0597357154%
+       Fear: 0.19920347630000002%
+       Sadness: 0.4449304342%
+       Surprise: 0.0767634511
+    */
+
+    /* TODO: Uncomment later
     indico.emotion(input)
         .then(function(data) {
             
@@ -47,6 +64,7 @@ app.post('/processSentiment', function (req, res) {
                 message:'There was an error processing the input.'
             });
         });
+    */
 });
 
 app.set('port', process.env.PORT || 3000);
