@@ -1,35 +1,65 @@
-<!doctype html>
+<!DOCTYPE html>
 <!--
  This page is shown when the extension button is clicked, because the
  "browser_action" field in manifest.json contains the "default_popup" key with
  value "popup.html".
  -->
 <html>
-  <head>
-    <title>Getting Started Extension's Popup</title>
-    <link rel="stylesheet" type="text/css" href="libs/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="css/popup.css">
-    <!--<link rel="stylesheet" type="text/css" href="libs/css/bootstrap.css"> -->
-    <!--
-      - JavaScript and HTML must be in separate files: see our Content Security
-      - Policy documentation[1] for details and explanation.
-      -
-      - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-      -->
-  </head>
-  <body>
-    <h1>Hello World</h1>
+    <head>
+        <link rel="stylesheet" type="text/css" href="libs/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/popup.css">
+        <!--<link rel="stylesheet" type="text/css" href="libs/css/bootstrap.css"> -->
+        <!--
+          - JavaScript and HTML must be in separate files: see our Content Security
+          - Policy documentation[1] for details and explanation.
+          -
+          - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+          -->
+        </head>
+    <body>
+        
+        <!-- header -->
+        <div class="cont">
+            <div class="in-line">
+                <img id="logo" src="img/animo_logo.png" alt="Logo">
+                <h4 id="greeting">Test</h4>
+            </div>
+            <hr>
 
-    <form>
-      <input id="sentiment_input" type="text"/>
-      <button type="button" id="send-btn">Get sentiment</button>
-    </form>
-    <div id="sentiment_input"></div>
-    <div id="sentiment_result"></div>
-    
-    <script src="libs/js/jquery-3.1.1.min.js"></script>
-    <script src="libs/js/bootstrap.min.js"></script> 
-    <script src="js/popup.js"></script>
-  </body>
+            
+        </div>
+        
+        <!-- body -->
+        <div class="row cont">
+            <div class="settings-section">
+                <h5>Username:</h5>
+                <input id="username_input" type="text" value="username">
+            </div>
+
+            <div class="settings-section">
+                <h5>Notification Frequency:</h5>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default btn-xs dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Please select one <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Daily</a></li>
+                        <li><a href="#">Weekly</a></li>
+                        <li><a href="#">Monthly</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="cont fix-bottom">
+            <button id="save-btn" class="btn btn-info btn-xs">Save</button>
+        </div>
+        
+        
+        <!-- scripts -->
+        <script src="libs/js/jquery-3.1.1.min.js"></script>
+        <script src="libs/js/bootstrap.min.js"></script> 
+        <script src="js/popup.js"></script>
+        
+    </body>
 </html>
 

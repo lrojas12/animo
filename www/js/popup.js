@@ -1,3 +1,9 @@
+var username = "username";
+$("#greeting").html("Hello, " + username);
+
+
+//console.log($("#username_input").val());
+
 $('#send-btn').click(function() {
     
     var input = $('#sentiment_input').val();
@@ -20,3 +26,5 @@ $('#send-btn').click(function() {
             console.log(error);
         });
 });
+
+$("input").blur();
