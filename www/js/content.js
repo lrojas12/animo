@@ -13,8 +13,8 @@ function main(){
 //---------HELPER FUNCTIONS---------
 function createNotification(notification_message){
     //Build the notification
-    var $button = $("<button class='btn btn-default' type='button'>").html("Send");
-    var $span = $("<span id='send-btn' class='input-group-btn'>").append($button);
+    var $button = $("<button id='send-btn' class='btn btn-default' type='button'>").html("Send");
+    var $span = $("<span class='input-group-btn'>").append($button);
     var $input = $("<input id='sentiment_input' type='text' class='form-control' placeholder='I feel...'>");
     var $input_group = $("<div class='input-group'>").append($input, $span);
     var $col = $("<div class='col-sm-12'>").append($input_group);
@@ -62,7 +62,7 @@ function initInput(){
     $("#sentiment_input").keyup(function(event){
         
     	if(event.keyCode == 13){
-                $("#go-btn").click();
+                $("#send-btn").click();
     	}
     });
 }
