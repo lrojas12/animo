@@ -11,7 +11,7 @@
 	    "matches": [
 		"<all_urls>"
 	    ],
-	    "js": ["./www/libs/jquery-3.1.1.min.js","./www/js/content.js"]
+	    "js": ["./www/libs/js/jquery-3.1.1.min.js","./www/js/content.js"]
 	}
     ],
     "browser_action":{
@@ -21,7 +21,7 @@
     },
     "background": {
 	"scripts": ["./www/js/background.js"]
-    }
-    
+    },
+    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"    
 
 }

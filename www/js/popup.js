@@ -1,4 +1,3 @@
-//console.log("Hello from popup.js");
 $('#send-btn').click(function() {
     
     var input = $('#sentiment_input').val();

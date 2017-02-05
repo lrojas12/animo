@@ -7,19 +7,24 @@
 <html>
   <head>
     <title>Getting Started Extension's Popup</title>
+    <link rel="stylesheet" type="text/css" href="libs/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="css/popup.css">
+    <!--<link rel="stylesheet" type="text/css" href="libs/css/bootstrap.css"> -->
     <!--
       - JavaScript and HTML must be in separate files: see our Content Security
       - Policy documentation[1] for details and explanation.
       -
       - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
-     -->
-    <script src="js/popup.js"></script>
+      -->
   </head>
   <body>
-    <h1>Hello</h1>
-    <div id="status">World</div>
-    <img id="image-result" hidden>
+    <h1>Hello World</h1>
+
+    <a id="testBtn" class="btn btn-raised btn-info">Test</a>
+    
+    <script src="libs/js/jquery-3.1.1.min.js"></script>
+    <script src="libs/js/bootstrap.min.js"></script> 
+    <script src="js/popup.js"></script>
   </body>
 </html>
 
