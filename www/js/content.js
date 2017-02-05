@@ -4,7 +4,7 @@ var message = "<b>Bot</b>: Hello, " + username + ". How are you doing today?";
 createNotification(message);
 
 $("#send-btn").click(function() {
-    //console.log("Go Button Clicked!");
+    console.log("Go Button Clicked!");
 
     //Obtain the input from the user
     var $input = $("#sentiment-input");
