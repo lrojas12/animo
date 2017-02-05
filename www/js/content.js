@@ -36,7 +36,7 @@ function initGoBtn(){
 	//Obtain the input from the user
 	var $input = $("#sentiment_input");
 	var input = $input.val();
-	console.log(input);
+	console.log("[client] " + input);
 	
 	//Send post request to the server
 	$.post('http://127.0.0.1:3000/processSentiment', {input:input})
@@ -44,6 +44,7 @@ function initGoBtn(){
 		
 		var reply = data.message;
 		//TODO: Use UI to display reply to user
+		console.log(reply);
             })
             .fail(function(xhr, textStatus, error) {
 		console.log(xhr.statusText);
