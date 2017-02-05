@@ -26,6 +26,7 @@ app.get('/dbtest', function (req, res) {
     db.collection("test").save({username:"google",password:"google123"});    
     var cursor = db.collection("test").find();
     console.log(cursor);
+    res.send();
 });
 
 app.post('/processSentiment', function (req, res) {    
@@ -38,7 +39,7 @@ app.post('/processSentiment', function (req, res) {
     if (!input) {
         res.send({
             state: STATE_FAILURE,
-            message:'Empty input.'});
+            message: ":-( Ok, we'lll talk later, then. Best of luck."});
         return;
     }
 
@@ -47,32 +48,29 @@ app.post('/processSentiment', function (req, res) {
     indico.emotion(input)
         .then(function(data) {
 
-	    console.log("------------------");
-            console.log('Anger: ' + data.anger + "%\nJoy: " + data.joy + "%\nFear: " +
-                        data.fear + "%\nSadness: " + data.sadness + "%\nSurprise: " + data.surprise);
-	    console.log("------------------");
+    	    console.log("------------------");
+                console.log('Anger: ' + data.anger + "%\nJoy: " + data.joy + "%\nFear: " +
+                            data.fear + "%\nSadness: " + data.sadness + "%\nSurprise: " + data.surprise);
+    	    console.log("------------------");
 
-	    var emotion = getClientEmotion(data);
-	    
-	    var path = "www/data/";
-	    var filename = path + emotion + ".txt"
-	    
-
-	    fs.readFile(filename, 'utf8', function(err, contents) {
-		var replies_array = (contents.trim()).split('\n');
-		var len = replies_array.length;
-		var index = Math.floor(Math.random() * len); //Create a random index to return
-		//console.log(contents.trim());
-		var clientReply = replies_array[index];
-		console.log(clientReply);
-
-		clientReply = "[server] " + clientReply;
-		
-		res.send({
-		    state: STATE_SUCCESS,
-		    message: clientReply
-		});
-	    });    
+    	    var emotion = getClientEmotion(data);
+    	    
+    	    var path = "www/data/";
+    	    var filename = path + emotion + ".txt"
+    	    
+    	    fs.readFile(filename, 'utf8', function(err, contents) {
+        		var replies_array = (contents.trim()).split('\n');
+        		var len = replies_array.length;
+        		var index = Math.floor(Math.random() * len); //Create a random index to return
+        		//console.log(contents.trim());
+        		var clientReply = replies_array[index];
+        		console.log(clientReply);
+        		
+        		res.send({
+        		    state: STATE_SUCCESS,
+        		    message: clientReply
+        		});
+    	    });    
         })
         .catch(function(err) {
             res.send({

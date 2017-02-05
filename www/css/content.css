@@ -31,3 +31,19 @@
 #chat-holder {
     margin: 5px;
 }
+
+.in-line > p, .in-line > a {
+    display: inline-block;
+}
+
+#close-notification {
+    color: white;
+    font-size: 10px;
+    vertical-align: middle;
+    float:right;
+}
+
+#close-notification:hover {
+    text-decoration: none;
+    cursor: pointer;
+}
