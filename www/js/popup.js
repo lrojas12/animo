@@ -16,11 +16,16 @@ if (!username) {
     user_exists = true;
 }
 
+$("#test-btn").click(function() {
+    console.log('test button clicked');
+    createNotification(message);
+});
+
 $("#unordered-list li a").click(function() {
     $("#dropdown-btn").html($(this).html());
 });
 
-$('#send-btn').click(function() {
+$('#save-btn').click(function() {
     
     $("#username_error").html("");
     $("#freq_error").html("");
@@ -56,10 +61,13 @@ $('#send-btn').click(function() {
     //Save stuff locally!
     //Check if local storage is supported
     if (typeof(Storage) == "undefined") {
-	console.log("localStorage not supported");
-	return;
+	       console.log("localStorage not supported");
+	          return;
     }
+    
     $("#submission_msg").html("Your changes have been saved successfully.");
+    $("#greeting").html("Hello, " + username + "!");
+    $("#username_input").attr("placeholder", "New username?");
     
     //Save the username
     localStorage.setItem("qhacks_username", username);

@@ -19,20 +19,21 @@ $("#send-btn").click(function() {
         
             var reply = data.message;
             
-            //TODO: Use UI to display reply to user
             createMessage("Bot", reply);
             
-            $("#sentiment-input").prop('disabled', true);
-            $("#send-btn").prop('disabled', true);
-
             console.log(reply);
         })
         .fail(function(xhr, textStatus, error) {
             console.log(xhr.statusText);
             console.log(textStatus);
             console.log(error);
+            
+            createMessage("Bot", "Sorry, seems we have a problem with our server. I'll come back later!");
     });
 
+    $("#sentiment-input").prop('disabled', true);
+    $("#send-btn").prop('disabled', true);
+    
     //Clear the input field
     $input.val(''); 
 });

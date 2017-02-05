@@ -23,22 +23,27 @@
             <div class="in-line">
                 <img id="logo" src="img/browser_icon.png" alt="Logo">
                 <h4 id="greeting">Test</h4>
-            </div>
+            </div><br>
             <hr>
-
-            
         </div>
         
         <!-- body -->
         <div class="row cont">
+            
+            <div class="settings-section in-line">
+                <button id="analyze-btn" class="btn btn-success btn-xs">Analyze</button>
+                &nbsp;your data up to now!<br><br>
+                <hr>
+            </div>    
+            
             <div class="settings-section">
-                <h5>Username:</h5>
+                <h6>Username:</h6>
                 <input id="username_input" type="text">
                 <div id="username_error" class="err_msg"></div>
             </div>
 
             <div class="settings-section">
-                <h5>Notification Frequency:</h5>
+                <h6>Notification Frequency:</h6>
                 
                 <div class="btn-group">
                     <button id="dropdown-btn" type="button" class="btn btn-default">Please select one</button>
@@ -58,7 +63,9 @@
             </div>
         </div>
         <div class="cont fix-bottom">
-            <button id="send-btn" class="btn btn-info btn-xs">Save</button>
+            
+            <button id="save-btn" class="btn btn-info btn-xs">Save</button>
+            <button id="test-btn" class="btn btn-warning btn-xs">Test</button>
             <div id="submission_msg" class="succ_msg"></div>
         </div>
         
