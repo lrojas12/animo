@@ -18,6 +18,8 @@ app.get('/isalive', function (req, res) {
 
 app.post('/processSentiment', function (req, res) {
     
+    console.log('Received something from client!');
+    
     var input = req.body.input;
     var reply = ""; //TODO: automate this
         

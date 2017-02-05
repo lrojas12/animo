@@ -9,19 +9,18 @@
     "content_scripts": [
 	{
 	    "matches": [
-		"<all_urls>"
+            "<all_urls>"
 	    ],
 	    "js": ["./www/libs/js/jquery-3.1.1.min.js","./www/js/content.js"]
 	}
     ],
     "browser_action":{
-	"default_popup": "./www/popup.html",
-	"default_icon": "./www/img/browser_icon.png",
-	"default_title": "Click here!"
+    	"default_popup": "./www/popup.html",
+    	"default_icon": "./www/img/browser_icon.png",
+    	"default_title": "Click here!"
     },
     "background": {
-	"scripts": ["./www/js/background.js"]
+	       "scripts": ["./www/js/background.js"]
     },
-    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"    
-
+    "content_security_policy": "script-src 'self' https://ssl.google-analytics.com; object-src 'self'"
 }

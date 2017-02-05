@@ -8,7 +8,7 @@ $('#send-btn').click(function() {
         return;
     }
     
-    $.post('/processSentiment', {input:input})
+    $.post('http://127.0.0.1:3000/processSentiment', {input:input})
         .done(function(result) {
             
             var reply = result.message;
@@ -19,5 +19,4 @@ $('#send-btn').click(function() {
             console.log(textStatus);
             console.log(error);
         });
-    
 });
