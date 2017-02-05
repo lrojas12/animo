@@ -21,6 +21,7 @@ app.get('/isalive', function (req, res) {
     res.send('Yep! Its alive');
 });
 
+/*
 app.get('/dbtest', function (req, res) {
     console.log("/dbtest called");
     db.collection("test").save({username:"google",password:"google123"});    
@@ -28,6 +29,7 @@ app.get('/dbtest', function (req, res) {
     console.log(cursor);
     res.send();
 });
+*/
 
 app.post('/processSentiment', function (req, res) {    
     
@@ -42,11 +44,14 @@ app.post('/processSentiment', function (req, res) {
             message: ":-( Ok, we'lll talk later, then. Best of luck."});
         return;
     }
-
-    //TODO: Uncomment later
     
     indico.emotion(input)
         .then(function(data) {
+            
+            //TODO: incorporate date of submission
+            
+            //save into database
+            db.collection("Sentiment").save({anger:data.anger,joy:data.joy, fear:data.fear, sadness:data.sadness, surprise:data.surprise}); 
 
     	    console.log("------------------");
                 console.log('Anger: ' + data.anger + "%\nJoy: " + data.joy + "%\nFear: " +
@@ -78,8 +83,6 @@ app.post('/processSentiment', function (req, res) {
                 message:'There was an error processing the input.'
             });
         });
-    
-
 });
 
 app.set('port', process.env.PORT || 3000);
@@ -91,8 +94,6 @@ MongoClient.connect('mongodb://admin:admin@ds141209.mlab.com:41209/qhacks2017', 
 	console.log('Listening on port ' + app.get('port'));
     });
 })
-
-
 
 function getClientEmotion(data){
     //Returns the highest ranked emotion based on the data given

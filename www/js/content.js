@@ -11,12 +11,7 @@ var greeting_messages = [
     "Greetings, how can I help you today?"
 ]
 
-//get a random index for the greeting messages
-var random_index = Math.floor(Math.random() * greeting_messages.length);
-
-var message = "<b>Bot</b>: " + greeting_messages[random_index];
-
-createNotification(message);
+createNotification();
 
 $("#send-btn").click(function() {
     console.log("Send Button Clicked!!");
@@ -60,7 +55,11 @@ $("#sentiment-input").keyup(function(event){
     }
 });
 
-function createNotification(notification_message) {
+function createNotification() {
+
+    //get a random index for the greeting messages
+    var random_index = Math.floor(Math.random() * greeting_messages.length);
+    var notification_message = "<b>Bot</b>: " + greeting_messages[random_index];
     
     var $button = $("<button id='send-btn' class='btn btn-default' type='button'>").html("Send");
     var $span = $("<span class='input-group-btn'>").append($button);
@@ -77,12 +76,19 @@ function createNotification(notification_message) {
     
     var $notification = $("<div class='well well-sm' id='notification'>").append($notif_header, $chat_holder);
 
+    //var $test_btn = $("<button id='test-btn' class='btn btn-danger btn-xs'>").html("TEST");
+
     //Append the notification to the body
+    //$("body").append($notification, $test_btn);
     $("body").append($notification);
 };
 
 $("#close-notification").click(function() {
     $("#notification").remove();
+});
+
+$("#test-btn").click(function() {
+    createNotification();
 });
 
 function createMessage(sender, message) {

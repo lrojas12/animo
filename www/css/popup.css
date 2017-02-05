@@ -114,3 +114,8 @@ input {
     vertical-align: bottom;
     font-size: 12px;
 }
+
+.alert {
+    width: 100%;
+    padding: 0;
+}

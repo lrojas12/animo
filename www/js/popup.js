@@ -16,13 +16,17 @@ if (!username) {
     user_exists = true;
 }
 
-$("#test-btn").click(function() {
-    console.log('test button clicked');
-    createNotification(message);
-});
-
 $("#unordered-list li a").click(function() {
     $("#dropdown-btn").html($(this).html());
+});
+
+$("#analyze-btn").click(function() {
+    
+    var $newdiv = $("<div class='alert'>").html("<b>Coming up soon</b>: You will be able to see a detailed analysis of your moods and experiences depending on the spawn frequency you have chosen. This would be done using the database where all user data is store, as well as Sentiment Analysis NLP.");
+    $("#analyze-div").append($newdiv);
+    
+    setTimeout(function(){$('.alert').remove()}, 20000);
+    
 });
 
 $('#save-btn').click(function() {
