@@ -1,5 +1,3 @@
-console.log('test');
-
 var username = "Luisa"; //TODO: get name from the database 
 var message = "<b>Bot</b>: Hello, " + username + ". How are you doing today?";
 
@@ -26,11 +24,7 @@ $("#send-btn").click(function() {
             
             $("#sentiment-input").prop('disabled', true);
             $("#send-btn").prop('disabled', true);
-            
-            setTimeout(function() {
-                $("#notification").remove();
-            }, 5000);
-            
+
             console.log(reply);
         })
         .fail(function(xhr, textStatus, error) {
