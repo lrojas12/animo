@@ -7,7 +7,7 @@ $("#send-btn").click(function() {
     //console.log("Go Button Clicked!");
 
     //Obtain the input from the user
-    var $input = $("#sentiment_input");
+    var $input = $("#sentiment-input");
     var input = $input.val();
     console.log("[client] " + input);
 
@@ -31,7 +31,7 @@ $("#send-btn").click(function() {
     $input.val(''); 
 });
 
-$("#sentiment_input").keyup(function(event){
+$("#sentiment-input").keyup(function(event){
     
     if(event.keyCode == 13){
             $("#send-btn").click();

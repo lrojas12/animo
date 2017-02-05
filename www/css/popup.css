@@ -6,7 +6,8 @@ body {
 }
 
 input {
-    max-height: 20px;
+    height: 20px;
+    width: 400px;
 }
 
 #status {
@@ -16,6 +17,25 @@ input {
     overflow: hidden;
     max-width: 400px;
     color:red;
+}
+
+.btn-group, #dropdown-btn, #toggle-arrow {
+    height: 20px;
+}
+
+#unordered-list > li, #unordered-list > li > a{
+    height: 20px;
+    font-size: 13px;
+}
+
+#dropdown-btn, #toggle-arrow {
+    padding: 0 0.5em 0 0.5em;
+}
+
+#dropdown-btn {
+    font-size: 13px;
+    width: 125px;
+    text-align: left;
 }
 
 #logo {
@@ -78,7 +98,14 @@ input {
     width: 100%;
 }
 
-.dropdown-menu > li > a {
-    max-height: 20px;
-    font-size: 13px;
+.err_msg {
+    color:red;
+}
+
+.succ_msg {
+    color:green;
+}
+
+#submission_msg, #freq_error, #username_error {
+    height: 10px;
 }
