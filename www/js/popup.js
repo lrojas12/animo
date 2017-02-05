@@ -1,4 +1,7 @@
-var username; //TODO: get username from local storage
+//resetLocalStorage(); //Uncomment to reset username and freq - simulates first time use
+
+var username = localStorage.qhacks_username//get username from local storage
+var freq = localStorage.qhacks_freq; //get the frequency from local storage
 var user_exists;
 
 if (!username) {
@@ -6,6 +9,8 @@ if (!username) {
     $("#username_input").attr("placeholder", "New username here!");
     user_exists = false;
 } else {
+    $("#username_input").val(username);
+    $('#dropdown-btn').html(freq);
     $("#greeting").html("Hello, " + username + "!");
     $("#username_input").attr("placeholder", "New username?");
     user_exists = true;
@@ -48,9 +53,22 @@ $('#send-btn').click(function() {
         }
     }
     
-    //TODO: save stuff locally!
+    //Save stuff locally!
+    //Check if local storage is supported
+    if (typeof(Storage) == "undefined") {
+	console.log("localStorage not supported");
+	return;
+    }
     $("#submission_msg").html("Your changes have been saved successfully.");
-
     
+    //Save the username
+    localStorage.setItem("qhacks_username", username);
+    localStorage.setItem("qhacks_freq", freq);
 
 });
+
+//For debuggin purposes to simulate first time users
+function resetLocalStorage(){
+    localStorage.removeItem("qhacks_username");
+    localStorage.removeItem("qhacks_freq");
+}
