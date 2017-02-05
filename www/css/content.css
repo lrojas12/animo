@@ -1,12 +1,33 @@
-#notification{
+#notification {
     position: fixed;
     right: 0;
     bottom: 0;
-    margin: 1.2em;
-    padding: 0.1em;
-    width: 20%;
+    padding: 0;
+    width: 250px;
+    z-index: 99999;
 }
-#notification_msg{    
-    margin:0;
-    text-align: center;
+
+#notification-msg {    
+    margin: 0 0 10px 0;
+    text-align: left;
+}
+
+#notification-header {
+    background-color: #2E2E2E;
+    height: 30px;
+    padding: 0.4em;
+}
+
+#notification-header > p {
+    color: #FAFAFA;
+    vertical-align: middle;
+    padding: 0;
+}
+
+.well, .well-sm {
+    padding: 0;
+}
+
+#chat-holder {
+    margin: 5px;
 }
