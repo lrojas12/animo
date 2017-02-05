@@ -1,5 +1,20 @@
-var username = "Luisa"; //TODO: get name from the database 
-var message = "<b>Bot</b>: Hello, " + username + ". How are you doing today?";
+var username = "friend";
+//get name from storage if it exists
+if (typeof(Storage) == "undefined") {
+    console.log("localStorage not supported");
+}else{console.log("Supported")}
+
+var greeting_messages = [
+    "Hello, " + username + ". How are you doing today?",
+    "Hey, anything interesting happen today?",
+    "Hi, just checking up on ya, how is the world treating you today?",
+    "Greetings, how can I help you today?"
+]
+
+//get a random index for the greeting messages
+var random_index = Math.floor(Math.random() * greeting_messages.length);
+
+var message = "<b>Bot</b>: " + greeting_messages[random_index];
 
 createNotification(message);
 
