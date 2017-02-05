@@ -1,0 +1,12 @@
+#notification{
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    margin: 1.2em;
+    padding: 0.1em;
+    width: 20%;
+}
+#notification_msg{    
+    margin:0;
+    text-align: center;
+}

@@ -11,7 +11,8 @@
 	    "matches": [
             "<all_urls>"
 	    ],
-	    "js": ["./www/libs/js/jquery-3.1.1.min.js","./www/js/content.js"]
+	    "css": ["www/libs/css/bootstrap.css" ,"./www/css/content.css"],
+	    "js": ["./www/libs/js/jquery-3.1.1.min.js", "www/libs/js/bootstrap.min.js", "./www/js/content.js"]
 	}
     ],
     "browser_action":{
