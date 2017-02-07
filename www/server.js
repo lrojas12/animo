@@ -2,14 +2,24 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var indico = require('indico.io');
 var fs = require('fs');
-
-//Mongo Stuff
-const MongoClient = require('mongodb').MongoClient;
-var db;
+var mongoose = require('mongoose');
 
 indico.apiKey =  '1dea16c1023be04af4aaa6ce6baea0e2';
 
 var app = express();
+
+//mongoose set-up
+var db; //assigned in the MongoClient.connect() function
+
+var Schema = mongoose.Schema;
+var entrySchema = new Schema({user: String,
+                              //date: String,
+                              date: Date,
+                              //sentimentanalysis: {emotions: {Number}} },
+                              sentimentanalysis: {} },
+                            {collection:'entries'});
+
+var Entry = mongoose.model('entry', entrySchema);
 
 const STATE_SUCCESS = 0;
 const STATE_FAILURE = 1;
@@ -34,7 +44,6 @@ app.get('/dbtest', function (req, res) {
 app.post('/processSentiment', function (req, res) {    
     
     var input = req.body.input;
-    var reply = ""; //TODO: automate this
 
     console.log('[client] ' + input);
         
@@ -45,14 +54,11 @@ app.post('/processSentiment', function (req, res) {
         return;
     }
     
+    var clientReply = "No reply received from server.";
+    
     indico.emotion(input)
         .then(function(data) {
-            
-            //TODO: incorporate date of submission
-            
-            //save into database
-            db.collection("Sentiment").save({anger:data.anger,joy:data.joy, fear:data.fear, sadness:data.sadness, surprise:data.surprise}); 
-
+                                    
     	    console.log("------------------");
                 console.log('Anger: ' + data.anger + "%\nJoy: " + data.joy + "%\nFear: " +
                             data.fear + "%\nSadness: " + data.sadness + "%\nSurprise: " + data.surprise);
@@ -61,39 +67,61 @@ app.post('/processSentiment', function (req, res) {
     	    var emotion = getClientEmotion(data);
     	    
     	    var path = "www/data/";
-    	    var filename = path + emotion + ".txt"
+    	    var filename = path + emotion + ".txt";
     	    
     	    fs.readFile(filename, 'utf8', function(err, contents) {
+                
         		var replies_array = (contents.trim()).split('\n');
         		var len = replies_array.length;
         		var index = Math.floor(Math.random() * len); //Create a random index to return
         		//console.log(contents.trim());
-        		var clientReply = replies_array[index];
-        		console.log(clientReply);
-        		
-        		res.send({
-        		    state: STATE_SUCCESS,
-        		    message: clientReply
-        		});
-    	    });    
+        		clientReply = replies_array[index];
+        		console.log('[inside] ' + clientReply);
+                
+                res.send({
+                    state: STATE_SUCCESS,
+                    message: clientReply
+                });
+    	    });
+            
+            //console.log('[outside] ' + clientReply);
+
+            // save in database
+            var today = new Date();
+            var sentimentData = data;
+            //var log = input;
+            var username = req.body.username;
+            
+            /*
+            var dd = today.getDate();
+            var mm = today.getMonth()+1; //January is 0
+            var yyyy = today.getFullYear();
+            if (dd < 10) dd = '0' + dd;
+            
+            if (mm < 10) {
+                mm = '0' + mm;
+            } 
+            var today = dd + '/' + mm + '/' + yyyy;
+            */
+            
+            console.log('date: ' + today);
+            
+            var newEntry = new Entry({user:username, date:today, sentimentanalysis:sentimentData});
+            newEntry.save(function(err) {
+                if (err) console.log(err);
+            });
+            
+            
         })
         .catch(function(err) {
+            console.log(err);
             res.send({
                 state: STATE_FAILURE, 
-                message:'There was an error processing the input.'
+                message: '[catch]' + clientReply
             });
         });
 });
 
-app.set('port', process.env.PORT || 3000);
-
-MongoClient.connect('mongodb://admin:admin@ds141209.mlab.com:41209/qhacks2017', (err, database) => {
-  if (err) return console.log(err)
-  db = database
-    app.listen(app.get('port'), function() {
-	console.log('Listening on port ' + app.get('port'));
-    });
-})
 
 function getClientEmotion(data){
     //Returns the highest ranked emotion based on the data given
@@ -125,3 +153,15 @@ function getClientEmotion(data){
 
     return emotion;
 }
+
+app.set('port', process.env.PORT || 3000);
+// app.listen() is done here, since we only want the server set up when/if the database is also up and running
+//note: for admin, add "admin" in URL: mongodb://<adminuser>:<password>@ds012345-a0.mlab.com:56789,ds012345-a1.mlab.com:56790/admin?replicaSet=rs-ds012345
+mongoose.connect('mongodb://admin:pass123@ds145019.mlab.com:45019/entriesdb', function(err, database) {
+    if (err) return console.log(err);
+    
+    db = database
+    app.listen(app.get('port'), function() {
+      console.log('Listening on port ' + app.get('port'));
+    });
+});

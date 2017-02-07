@@ -1,59 +1,87 @@
-var username = "friend";
+console.log('from content.js');
+var username = "NO_USER";
+var freq;
 //get name from storage if it exists
+/*
 if (typeof(Storage) == "undefined") {
     console.log("localStorage not supported");
 }else{console.log("Supported")}
+*/
 
-var greeting_messages = [
-    "Hello, " + username + ". How are you doing today?",
-    "Hey, anything interesting happen today?",
-    "Hi, just checking up on ya, how is the world treating you today?",
-    "Greetings, how can I help you today?"
-]
+var greeting_messages;
 
-createNotification();
+chrome.storage.local.get(['username', 'freq'], function(items) {
+      username = items.username;
+      freq = items.freq;
+      
+      console.log('[INSIDE] got variables: username: ' + username + ", freq: " + freq);
+      app();
+});
 
-$("#send-btn").click(function() {
-    console.log("Send Button Clicked!!");
 
-    //Obtain the input from the user
-    var $input = $("#sentiment-input");
-    var input = $input.val();
-    console.log("[client] " + input);
+function app() {
     
-    createMessage("You", input);
+    console.log('[OUTSIDE] got variables: username: ' + username + ", freq: " + freq);
     
-    //Send post request to the server
-    $.post('http://127.0.0.1:3000/processSentiment', {input:input})
-        .done(function(data) {
+    greeting_messages = [
+        "Hello, " + username + ". How are you doing today?",
+        "Hey, anything interesting happen today?",
+        "Hi, just checking up on ya, how is the world treating you today?",
+        "Greetings, how can I help you today?"
+    ]
+
+    createNotification();
+
+    $("#send-btn").click(function() {
+        console.log("Send Button Clicked!!");
+
+        //Obtain the input from the user
+        var $input = $("#sentiment-input");
+        var input = $input.val();
+        console.log("[client] " + input);
         
-            var reply = data.message;
+        createMessage("You", input);
+        
+        //Send post request to the server
+        $.post('http://127.0.0.1:3000/processSentiment', {input:input, username:username})
+            .done(function(data) {
             
-            createMessage("Bot", reply);
-            
-            console.log(reply);
-        })
-        .fail(function(xhr, textStatus, error) {
-            console.log(xhr.statusText);
-            console.log(textStatus);
-            console.log(error);
-            
-            createMessage("Bot", "Sorry, seems we have a problem with our server. I'll come back later!");
+                var reply = data.message;
+                
+                createMessage("Bot", reply);
+                
+                console.log(reply);
+            })
+            .fail(function(xhr, textStatus, error) {
+                console.log(xhr.statusText);
+                console.log(textStatus);
+                console.log(error);
+                
+                createMessage("Bot", "Sorry, seems we have a problem with our server. I'll come back later!");
+        });
+
+        $("#sentiment-input").prop('disabled', true);
+        $("#send-btn").prop('disabled', true);
+        
+        //Clear the input field
+        $input.val(''); 
     });
 
-    $("#sentiment-input").prop('disabled', true);
-    $("#send-btn").prop('disabled', true);
-    
-    //Clear the input field
-    $input.val(''); 
-});
+    $("#sentiment-input").keyup(function(event){
+        
+        if(event.keyCode == 13){
+            $("#send-btn").click();
+        }
+    });
 
-$("#sentiment-input").keyup(function(event){
-    
-    if(event.keyCode == 13){
-        $("#send-btn").click();
-    }
-});
+    $("#close-notification").click(function() {
+        $("#notification").remove();
+    });
+
+    $("#test-btn").click(function() {
+        createNotification();
+    });
+}
 
 function createNotification() {
 
@@ -82,14 +110,6 @@ function createNotification() {
     //$("body").append($notification, $test_btn);
     $("body").append($notification);
 };
-
-$("#close-notification").click(function() {
-    $("#notification").remove();
-});
-
-$("#test-btn").click(function() {
-    createNotification();
-});
 
 function createMessage(sender, message) {
     //console.log("createMessage called() " + "[sender:" + sender + "] [message:" + message + "]");

@@ -15,6 +15,10 @@
 	    "js": ["./www/libs/js/jquery-3.1.1.min.js", "www/libs/js/bootstrap.min.js", "./www/js/content.js"]
 	}
     ],
+    "permissions": [
+      "tabs",
+      "storage"
+    ],
     "browser_action":{
     	"default_popup": "./www/popup.html",
     	"default_icon": "./www/img/browser_icon_sm.png",
