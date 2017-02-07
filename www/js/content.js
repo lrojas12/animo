@@ -1,28 +1,17 @@
-console.log('from content.js');
-var username = "NO_USER";
+var username;
 var freq;
-//get name from storage if it exists
-/*
-if (typeof(Storage) == "undefined") {
-    console.log("localStorage not supported");
-}else{console.log("Supported")}
-*/
-
 var greeting_messages;
 
 chrome.storage.local.get(['username', 'freq'], function(items) {
+      
       username = items.username;
       freq = items.freq;
       
-      console.log('[INSIDE] got variables: username: ' + username + ", freq: " + freq);
       app();
 });
 
-
 function app() {
-    
-    console.log('[OUTSIDE] got variables: username: ' + username + ", freq: " + freq);
-    
+        
     greeting_messages = [
         "Hello, " + username + ". How are you doing today?",
         "Hey, anything interesting happen today?",
