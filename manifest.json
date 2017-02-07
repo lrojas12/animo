@@ -20,9 +20,9 @@
       "storage"
     ],
     "browser_action":{
-    	"default_popup": "./www/popup.html",
+    	"default_popup": "./www/entries.html",
     	"default_icon": "./www/img/browser_icon_sm.png",
-    	"default_title": "Click here!"
+    	"default_title": "Animo"
     },
     "background": {
 	       "scripts": ["./www/js/background.js"]

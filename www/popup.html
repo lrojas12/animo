@@ -20,9 +20,10 @@
         
         <!-- header -->
         <div class="cont">
+            <a href="entries.html"><img id="back-icon" src="img/back.png" alt="Settings"></a>
             <div class="in-line">
                 <img id="logo" src="img/browser_icon.png" alt="Logo">
-                <h4 id="greeting">Test</h4>
+                <h4 id="greeting">Settings</h4>
             </div><br>
             <hr>
         </div>
@@ -30,18 +31,36 @@
         <!-- body -->
         <div class="row cont">
             
-            <div class="settings-section in-line">
-                <div id="analyze-div">
-                    <button id="analyze-btn" class="btn btn-success btn-xs" type="button">Analyze</button>
-                    &nbsp;your data up to now!<br><br>
-                </div>
-                <hr>
-            </div>    
+            <div class="settings-section">
+                <h6>Name</h6>
+                <input id="name_input" type="text">
+                <div id="name_error" class="err_msg"></div>
+            </div>
             
             <div class="settings-section">
                 <h6>Username:</h6>
                 <input id="username_input" type="text">
                 <div id="username_error" class="err_msg"></div>
+            </div>
+            
+            <div class="settings-section">
+                <h6>Gender:</h6>
+                
+                <div class="btn-group">
+                    <button id="gender-dropdown-btn" type="button" class="btn btn-default">Please select one</button>
+                    <button id="toggle-arrow" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Toggle Dropdown</span>
+                    </button>
+                    
+                    </button>
+                    <ul class="dropdown-menu" id="g-unordered-list">
+                        <li><a href="#">Male</a></li>
+                        <li><a href="#">Female</a></li>
+                        <li><a href="#">Other</a></li>
+                    </ul>
+                </div>
+                <div id="gender_error" class="err_msg"></div>
             </div>
 
             <div class="settings-section">
@@ -63,6 +82,8 @@
                 </div>
                 <div id="freq_error" class="err_msg"></div>
             </div>
+            
+            
         </div>
         <div class="cont fix-bottom">
             <button id="save-btn" class="btn btn-info btn-xs">Save</button>

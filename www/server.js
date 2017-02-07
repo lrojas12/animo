@@ -12,9 +12,11 @@ var app = express();
 var db; //assigned in the MongoClient.connect() function
 
 var Schema = mongoose.Schema;
-var entrySchema = new Schema({user: String,
+var entrySchema = new Schema({user: {type:String, unique:true, required:true},
                               //date: String,
-                              date: Date,
+                              name: {type:String, required:true},
+                              date: {type:String, required:true},
+                              text: {type:String, required:true},
                               //sentimentanalysis: {emotions: {Number}} },
                               sentimentanalysis: {} },
                             {collection:'entries'});
@@ -41,6 +43,29 @@ app.get('/dbtest', function (req, res) {
 });
 */
 
+app.post('/getEntries', function(req, res) {
+    
+    var username = req.body.username;
+    //console.log("reached /getEntries at server for username " + username);
+    
+    Entry.find({user:username}, function(err, entries) {
+        
+        if (err) {
+            res.send({
+                state: STATE_FAILURE,
+                message: "Unable to retrieve your entries at this moment. Please try again later."
+            })
+        }
+        
+        //console.log(entries);
+        
+        res.send({
+            state: STATE_SUCCESS,
+            data: entries
+        })
+    })
+});
+
 app.post('/processSentiment', function (req, res) {    
     
     var input = req.body.input;
@@ -61,10 +86,10 @@ app.post('/processSentiment', function (req, res) {
                                     
     	    console.log("------------------");
                 console.log('Anger: ' + data.anger + "%\nJoy: " + data.joy + "%\nFear: " +
-                            data.fear + "%\nSadness: " + data.sadness + "%\nSurprise: " + data.surprise);
+                            data.fear + "%\nSadness: " + data.sadness + "%\nSurprise: " + data.surprise + "%");
     	    console.log("------------------");
 
-    	    var emotion = getClientEmotion(data);
+    	    var emotion = getMaxEmotion(data);
     	    
     	    var path = "www/data/";
     	    var filename = path + emotion + ".txt";
@@ -76,7 +101,7 @@ app.post('/processSentiment', function (req, res) {
         		var index = Math.floor(Math.random() * len); //Create a random index to return
         		//console.log(contents.trim());
         		clientReply = replies_array[index];
-        		console.log('[inside] ' + clientReply);
+        		console.log(clientReply);
                 
                 res.send({
                     state: STATE_SUCCESS,
@@ -84,34 +109,31 @@ app.post('/processSentiment', function (req, res) {
                 });
     	    });
             
-            //console.log('[outside] ' + clientReply);
-
             // save in database
             var today = new Date();
             var sentimentData = data;
             //var log = input;
             var username = req.body.username;
+            var name = req.body.name;
             
-            /*
             var dd = today.getDate();
-            var mm = today.getMonth()+1; //January is 0
+            var mm = today.getMonth()+1; //January is 0!
+
             var yyyy = today.getFullYear();
-            if (dd < 10) dd = '0' + dd;
-            
-            if (mm < 10) {
-                mm = '0' + mm;
+            if(dd<10){
+                dd='0'+dd;
             } 
-            var today = dd + '/' + mm + '/' + yyyy;
-            */
+            if(mm<10){
+                mm='0'+mm;
+            } 
+            today = dd+'/'+mm+'/'+yyyy;
             
-            console.log('date: ' + today);
-            
-            var newEntry = new Entry({user:username, date:today, sentimentanalysis:sentimentData});
+            console.log('Stored: \n\tUser: ' + username + '\n\tName: ' + name + "\n\tDate: " + today + "\n\tText: " + input + "\n\tAnalysis: " + sentimentData);
+                        
+            var newEntry = new Entry({user:username, name:name, date:today, text:input, sentimentanalysis:sentimentData});
             newEntry.save(function(err) {
                 if (err) console.log(err);
             });
-            
-            
         })
         .catch(function(err) {
             console.log(err);
@@ -123,7 +145,7 @@ app.post('/processSentiment', function (req, res) {
 });
 
 
-function getClientEmotion(data){
+function getMaxEmotion(data) {
     //Returns the highest ranked emotion based on the data given
 
     /*
@@ -137,19 +159,20 @@ function getClientEmotion(data){
     }
     */
     
-    var emotion = "";
+    var emotion= "";
     var max_val = 0.0;    
-
+    
+    
     for (var key in data) {
-	if (data.hasOwnProperty(key)) {
-	    if(data[key] > max_val){
-		emotion = key.trim();
-		max_val = data[key];
-	    }
-	    //console.log(key + " -> " + data[key]);
-	}
+    	if (data.hasOwnProperty(key)) {
+    	    if(data[key] > max_val){
+        		emotion = key.trim();
+        		max_val = data[key];
+    	    }
+    	    //console.log(key + " -> " + data[key]);
+    	}
     }
-    console.log(emotion + " " + max_val);
+    console.log("Max emotion: " + emotion + " " + max_val + "%");
 
     return emotion;
 }

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--
+ This page is shown when the extension button is clicked, because the
+ "browser_action" field in manifest.json contains the "default_popup" key with
+ value "popup.html".
+ -->
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="libs/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="css/entries.css">
+        <!--<link rel="stylesheet" type="text/css" href="libs/css/bootstrap.css"> -->
+        <!--
+          - JavaScript and HTML must be in separate files: see our Content Security
+          - Policy documentation[1] for details and explanation.
+          -
+          - [1]: https://developer.chrome.com/extensions/contentSecurityPolicy
+      -->
+        </head>
+    <body>
+        
+        
+        <!-- header -->
+        <div class="cont">
+            <a href="popup.html"><img id="settings-icon" src="img/settings.png" alt="Settings"></a>
+            <div class="in-line">
+                <img id="logo" src="img/browser_icon.png" alt="Logo">
+                <h4 id="greeting"></h4>
+            </div>
+
+        </div>
+        <hr>
+
+        </div>
+        
+        <!-- body -->
+        <div id="entries-cont" class="cont">
+            
+        </div>
+        <div class="cont fix-bottom">
+            <button id="analyze-btn" class="btn btn-info btn-xs">Analize</button>
+        </div>
+        
+        <!-- scripts -->
+        <script src="libs/js/jquery-3.1.1.min.js"></script>
+        <script src="libs/js/bootstrap.min.js"></script> 
+        <script src="js/entries.js"></script>
+        
+    </body>
+</html>
+

@@ -1,6 +1,5 @@
 body {
     font-family: "Segoe UI", "Lucida Grande", Tahoma, sans-serif;
-    font-size: 100%;
     width:250px;
     height:370px;
 }
@@ -19,7 +18,7 @@ input {
     color:red;
 }
 
-.btn-group, #dropdown-btn, #gender-dropdown-btn, #toggle-arrow {
+.btn-group, #dropdown-btn, #toggle-arrow {
     height: 20px;
 }
 
@@ -28,11 +27,11 @@ input {
     font-size: 13px;
 }
 
- #dropdown-btn, #gender-dropdown-btn,  #toggle-arrow {
+ #dropdown-btn,  #toggle-arrow {
     padding: 0 0.5em 0 0.5em;
 }
 
- #dropdown-btn, #gender-dropdown-btn {
+ #dropdown-btn {
     font-size: 13px;
     width: 125px;
     text-align: left;
@@ -43,7 +42,7 @@ input {
     margin-right: 10px;
 }
 
- .cont {
+.cont {
     margin: 15px;
 }
 
@@ -64,6 +63,7 @@ input {
 
  hr {
     margin: 0;
+    padding: 0;
 }
 
  h6 {
@@ -102,8 +102,7 @@ input {
     color:green;
 }
 
- #submission_msg,  #freq_error,  #username_error,
- #gender_error, #name_error {
+ #submission_msg,  #freq_error,  #username_error {
     height: 10px;
 }
 
@@ -117,8 +116,40 @@ input {
     padding: 0;
 }
 
-#back-icon {
+
+
+
+
+#settings-icon {
     height: 20px;
     position: absolute;
     margin-left: 200px;
+}
+
+p {
+    font-size: 12px;
+}
+
+#entries-cont p {
+    margin: 0;
+}
+
+#entries-cont {
+    height: 255px;
+    overflow: auto;
+    margin-bottom: 5px;
+}
+
+.entry {
+    margin-bottom: 5px;
+    border:1px solid black;
+}
+
+.cont .in-line p {
+    margin: 0;
+}
+
+fix-bottom {
+    position: fixed;
+    bottom: 0;
 }
