@@ -1,4 +1,6 @@
-<center><img src="www/img/browser_icon.png" width="100">  qhacks2017</center>
+<center>
+<img src="www/img/browser_icon.png" width="100">  qhacks2017</center>
+
 ------------
 
 #### Version:`1.0`
