@@ -1,7 +1,7 @@
 <center><img src="www/img/browser_icon.png" width="100">  qhacks2017</center>
 ------------
 
-####Version:`1.0`
+#### Version:`1.0`
 
 ------
 
@@ -13,14 +13,14 @@
 <img border="0" alt="W3Schools" src="https://avatars2.githubusercontent.com/u/8698595?v=3&s=460" width="100" height="100" style="border-radius:25px;">
 </a>
 
-####*Luisa Rojas* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Alexandar Mihaylov*
+#### *Luisa Rojas* &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; *Alexandar Mihaylov*
 
 </center>
 
-#About
+# About
 *Animo* is your friend that always checks up on your when in need. *Animo* will poke you from time to time to see how you are doing. It will ask you questions depending on your mood and use sentiment analysis to adequately respond to them. Sometimes it will respond with a joke, sometimes with a motivational speech, depending on the situation. The main goal of *Animo* is to improve your mental health by either reinforcing good moods, or by lending out a helping hand when in a bad one.
 
-#Specifics
+# Specifics
 ![](./md-img/1.png)
 
 *Animo* is a chrome extension comprised of two different moving parts. One is the popup window that is activated by clicking the <img src="./md-img/2.png"/> icon on the top right hand side of the browser. It opens up a menu that allows the user to fill in their name and how often they would like to be poked.
